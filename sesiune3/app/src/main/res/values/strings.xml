@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">sesiune-3</string>
+    <string name="login_login">LOGIN</string>
+    <string name="login_email">Email</string>
+    <string name="login_password">Password</string>
+    <string name="login_i_accept_t_amp_c"><![CDATA[I accept T&C]]></string>
+    <string name="login_submit">SUBMIT</string>
+</resources>

@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/login_login"
+        android:textSize="24sp"
+        android:textColor="@color/purple_200"/>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/login_til_email"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:errorEnabled="true">
+
+       <com.google.android.material.textfield.TextInputEditText
+           android:id="@+id/login_email"
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:hint="@string/login_email"
+           android:background="@color/white"
+           />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/login_til_password"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:errorEnabled="true">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/login_password"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/login_password"
+            android:background="@color/white"
+            android:inputType="textPassword"
+            />
+    </com.google.android.material.textfield.TextInputLayout>
+
+
+    <CheckBox
+        android:id="@+id/login_acceptTC"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/login_i_accept_t_amp_c"/>
+
+    <Button
+        android:id="@+id/login_submit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/login_submit"/>
+</LinearLayout>
