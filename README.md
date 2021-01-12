@@ -1,59 +1,41 @@
-# atelierul-digital
+# Final Project - Travel Journal
 
-#### Sesiune 1: Build Your First App
-* Why Android?
-* How to start? (process)
-* Android Studio & Git
-* Android Platform Architecture & Project Structure
-* Deploying the app to an emulator and a device
-#### Sesiune 2: Building a layout with UI elements - Views
-* Size, margin, padding, units, gravity
-* TextView
-* ImageView
-* EditText
-* Button
-* View
-* CheckBox
-* RadioButton
-* RatingBar
-* Switch
-* SeekBar
-* ProgressBar
-#### Sesiune 3: ViewGroups
-* LinearLayout
-* FrameLayout
-* RelativeLayout
-* ScrollView
-* Spinner
-#### Sesiune 4: Complex Views
-* RecyclerView
-* ConstraintLayout
-#### Sesiune 5: Activities and Intents
-* Activity
-* Activity lifecycle
-  - startActivityForResult()
-  - onSaveInstanceState()
-* Intent
-  - Implicit intents
-  - Explicit intents
-* Bundle
-* Activities stack
-* Debugging
-#### Sesiune 6: Navigation and user interaction
-* Fragments
-  - Methods
-  - Fragment lifecycle
-* Navigation drawer
-#### Sesiune 7: Styles and more
-* Themes, styles and material design
-* Support libraries
-* Permissions
-#### Sesiune 8: Networking
-* Http requests (Retrofit)
-* Firebase
-#### Sesiune 9: Store data in Android
-* SharedPreferences
-* File manager
-* SQLite (Room)
-* Publish the app on the market
-#### Sesiune 10: Demo day and Recap :)
+#### Requirments
+* Splashscreen with the icon and the name of the app
+* Main screen
+  - It is a navigation drawer activity
+  - The menu on the left contains the next items:
+      - Full name of the user (on the top area)
+      - Email address of the user (on the top area)
+      - Home (item)
+      - About Us (item)
+      - Contact (item)
+      - Share (item)
+  - The main fragment of this activity will be the list of trips. This list will be displayed when the home item will be clicked
+  - Each trip could be added in the favourite list
+  - If the user press long click on an item, then the edit screen of the selected trip will be displayed
+* Trip list will be a RecylerView and each item will contain the next fields:
+  - Picture
+  - Trip Name
+  - Destination
+  - Price / Rating
+  - Bookmark button to mark the trip as favourite
+* Add/Edit trip
+  - The add action will be triggered by the FAB button from the trips list
+  - The edit action will be triggered when the user will long click on the item from the trips list
+  - This activity will contain the next fields:
+      - Trip Name (input)
+      - Destination (input)
+      - Trip Type with 3 possible options (single choice - radio group)
+        - City Break
+        - Sea Side
+        - Mountains
+      - Price (EUR) (slider)
+      - Start Date (date picker)
+      - End Date (date picker)
+      - Rating (rating bar)
+      - Gallery Photo (select a photo from gallery) [optional]
+      - Take Photo (take a picture using a camera) [optional]
+      - Save button
+- Save all the data from your app in the local database, recommended using Room library.
+- Create a new screen that will display the details of the trip in read only mode. You will be the designer of that screen, so be creative! :) The details screen will be displayed when the user will click on an item from the trips list. Also display in this screen the weather from that location using a public api like https://openweathermao.org/current
