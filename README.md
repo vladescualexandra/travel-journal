@@ -1,6 +1,6 @@
 # Final Project - Travel Journal
 
-#### Requirments
+## Requirments
 * Splashscreen with the icon and the name of the app
 * Main screen
   - It is a navigation drawer activity
