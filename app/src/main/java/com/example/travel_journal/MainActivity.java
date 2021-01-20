@@ -7,9 +7,12 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.TextView;
 
 import com.google.android.material.navigation.NavigationView;
 
@@ -21,6 +24,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+//        getSupportActionBar().hide();
         setContentView(R.layout.activity_main);
 
         configNavigation();
@@ -33,18 +37,35 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             }
         });
+
+        setNavigationView();
     }
 
     private void configNavigation() {
-        Toolbar toolbar = findViewById(R.id.toolbar);
         drawerLayout = findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle actionBarDrawerToggle = new ActionBarDrawerToggle(
                 this,
                 drawerLayout,
-                toolbar,
+                null,
                 R.string.navigation_drawer_open,
                 R.string.navigation_drawer_close);
-        drawerLayout.addDrawerListener(actionBarDrawerToggle);
+//        drawerLayout.addDrawerListener(actionBarDrawerToggle);
         actionBarDrawerToggle.syncState();
     }
+
+    private void setNavigationView() {
+        View header = navigationView.getHeaderView(0);
+        TextView username = header.findViewById(R.id.nav_username);
+        TextView email = header.findViewById(R.id.nav_email);
+
+        SharedPreferences prefs = getSharedPreferences(RegisterActivity.USER_PREFS, MODE_PRIVATE);
+        String prefs_username = prefs.getString(RegisterActivity.USERNAME_KEY, null);
+        String prefs_email = prefs.getString(RegisterActivity.EMAIL_KEY, null);
+
+        if (prefs_username != null && prefs_email != null) {
+            username.setText(prefs_username);
+            email.setText(prefs_email);
+        }
+    }
+
 }
