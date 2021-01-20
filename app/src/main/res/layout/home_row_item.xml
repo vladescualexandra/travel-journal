@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:weightSum="4"
+    android:padding="4sp">
+
+    <ImageView
+        android:id="@+id/home_row_image"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:src="@drawable/ic_menu_camera" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_weight="2"
+        android:weightSum="4"
+        android:padding="4sp"
+        >
+
+        <TextView
+            android:id="@+id/home_row_trip_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/home_row_trip_name"
+            android:layout_weight="1"
+            android:padding="2sp"
+            />
+
+        <TextView
+            android:id="@+id/home_row_trip_destination"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/home_row_trip_destination"
+            android:layout_weight="1"
+            android:padding="2sp"
+            />
+
+        <TextView
+            android:id="@+id/home_row_trip_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/home_row_trip_price"
+            android:layout_weight="1"
+            android:padding="2sp"
+            />
+
+        <RatingBar
+            android:id="@+id/home_row_trip_rating"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:numStars="5"
+            android:layout_weight="1"
+            style="@style/Widget.AppCompat.RatingBar.Small"
+            android:isIndicator="true"
+            android:padding="2sp"
+            android:stepSize="1"
+            />
+    </LinearLayout>
+    
+<ImageButton
+    android:id="@+id/home_row_button_fav"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:src="@android:drawable/star_big_on"
+    />
+</LinearLayout>

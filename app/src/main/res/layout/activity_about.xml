@@ -8,7 +8,7 @@
 
     <fragment
         android:id="@+id/fragment_about"
-        android:name="com.example.travel_journal.AboutFragment"
+        android:name="com.example.travel_journal.fragments.AboutFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_constraintBottom_toBottomOf="parent"

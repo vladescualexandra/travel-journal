@@ -9,13 +9,16 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
 import android.annotation.SuppressLint;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
+import com.example.travel_journal.fragments.AboutFragment;
+import com.example.travel_journal.fragments.ContactFragment;
+import com.example.travel_journal.fragments.HomeFragment;
+import com.example.travel_journal.fragments.ShareFragment;
 import com.google.android.material.navigation.NavigationView;
 
 public class MainActivity extends AppCompatActivity {

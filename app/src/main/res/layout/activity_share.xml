@@ -8,7 +8,7 @@
 
     <fragment
         android:id="@+id/fragment_share"
-        android:name="com.example.travel_journal.ShareFragment"
+        android:name="com.example.travel_journal.fragments.ShareFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_constraintBottom_toBottomOf="parent"
