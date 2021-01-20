@@ -9,6 +9,10 @@
         android:roundIcon="@mipmap/travel_journal_icon_foreground"
         android:supportsRtl="true"
         android:theme="@style/Theme.travel_journal">
+        <activity android:name=".ShareActivity"></activity>
+        <activity android:name=".ContactActivity" />
+        <activity android:name=".AboutActivity" />
+        <activity android:name=".HomeActivity" />
         <activity android:name=".MainActivity" />
         <activity android:name=".RegisterActivity" />
         <activity android:name=".SplashActivity">
