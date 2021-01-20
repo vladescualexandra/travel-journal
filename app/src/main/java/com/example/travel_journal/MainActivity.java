@@ -49,7 +49,6 @@ public class MainActivity extends AppCompatActivity {
                 null,
                 R.string.navigation_drawer_open,
                 R.string.navigation_drawer_close);
-//        drawerLayout.addDrawerListener(actionBarDrawerToggle);
         actionBarDrawerToggle.syncState();
     }
 

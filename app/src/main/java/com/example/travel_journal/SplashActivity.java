@@ -23,12 +23,13 @@ public class SplashActivity extends AppCompatActivity {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-//                if (username == null || email == null) {
+                if (username == null || email == null) {
                     intent = new Intent(getApplicationContext(), RegisterActivity.class);
                     startActivity(intent);
-//                } else {
-
-//                }
+                } else {
+                    intent = new Intent(getApplicationContext(), MainActivity.class);
+                    startActivity(intent);
+                }
             }
         }, DISPLAY_DURATION);
     }
