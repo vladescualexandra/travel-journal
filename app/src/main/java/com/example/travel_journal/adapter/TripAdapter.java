@@ -56,8 +56,7 @@ public class TripAdapter extends RecyclerView.Adapter<TripAdapter.ViewHolder> {
 //        holder.iv_image.setImageResource();
         holder.tv_name.setText(trips.get(position).getName());
         holder.tv_destination.setText(trips.get(position).getDestination());
-        holder.tv_price.setText(R.string.home_row_trip_price,
-                TextView.BufferType.valueOf(String.valueOf(trips.get(position).getPrice())));
+        holder.tv_price.setText(String.valueOf(trips.get(position).getPrice()));
         holder.rb_rating.setRating((float) trips.get(position).getRating());
         holder.ib_fav.setOnClickListener(addToFavorites(trips.get(position).getId()));
     }
@@ -73,7 +72,7 @@ public class TripAdapter extends RecyclerView.Adapter<TripAdapter.ViewHolder> {
 
     @Override
     public int getItemCount() {
-        return 0;
+        return trips.size();
     }
 
 
