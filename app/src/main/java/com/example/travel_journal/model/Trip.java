@@ -14,6 +14,9 @@ public class Trip implements Serializable {
     private Date start_date;
     private Date end_date;
 
+    public Trip() {
+    }
+
     public Trip(String name, String destination, Type type, int price, int rating) {
         this.name = name;
         this.destination = destination;
@@ -97,5 +100,17 @@ public class Trip implements Serializable {
         this.end_date = end_date;
     }
 
-
+    @Override
+    public String toString() {
+        return "Trip{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", destination='" + destination + '\'' +
+                ", type=" + type +
+                ", price=" + price +
+                ", rating=" + rating +
+                ", start_date=" + start_date +
+                ", end_date=" + end_date +
+                '}';
+    }
 }

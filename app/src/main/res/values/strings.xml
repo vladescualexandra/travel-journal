@@ -33,6 +33,7 @@
     <string name="trip_start_date">Start Date</string>
     <string name="trip_end_date">End date</string>
     <string name="trip_default_date">01/01/2021</string>
+    <string name="trip_date_format">%1$d/%2$d/%3$d</string>
     <string name="trip_save">Save</string>
     <string name="trip_destination">Trip destination</string>
     <string name="trip_add">Add</string>

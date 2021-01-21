@@ -14,6 +14,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.example.travel_journal.R;
 import com.example.travel_journal.TripActivity;
@@ -25,10 +26,13 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.xml.transform.Result;
+
 public class HomeFragment extends Fragment {
 
     public static final int REQUEST_CODE_ADD_TRIP = 201;
     RecyclerView recyclerView;
+    List<Trip> trips = new ArrayList<>();
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -36,7 +40,6 @@ public class HomeFragment extends Fragment {
         Trip t2 = new Trip("Name2", "Dest2", Type.CITY_BREAK, 46, 4);
         Trip t3 = new Trip("Name3", "Dest3", Type.CITY_BREAK, 35, 1);
 
-        List<Trip> trips = new ArrayList<>();
         trips.add(t1);
         trips.add(t2);
         trips.add(t3);
@@ -81,7 +84,15 @@ public class HomeFragment extends Fragment {
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == REQUEST_CODE_ADD_TRIP && data != null) {
-
+            Trip trip = (Trip) data.getSerializableExtra(TripActivity.TRIP_KEY);
+            Toast.makeText(getActivity().getApplicationContext(), trip.toString(), Toast.LENGTH_LONG).show();
+            trips.add(trip);
+            notifyAdapter();
         }
+    }
+
+    private void notifyAdapter() {
+        TripAdapter adapter = (TripAdapter) recyclerView.getAdapter();
+        adapter.notifyDataSetChanged();
     }
 }
