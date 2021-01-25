@@ -14,6 +14,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.example.travel_journal.R;
 import com.example.travel_journal.TripActivity;
@@ -32,19 +33,35 @@ public class HomeFragment extends Fragment {
     RecyclerView recyclerView;
     List<Trip> trips = new ArrayList<>();
     private TripService tripService;
-
+Intent intent;
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
 
         tripService = new TripService(getActivity().getApplicationContext());
         tripService.getAll(getAllTripsFromDBCallback());
-        TripAdapter adapter = new TripAdapter(trips, getActivity().getApplicationContext());
-
-        View view = inflater.inflate(R.layout.fragment_home, container, false);
-
-        addAdapter(adapter, view);
+        View view = initRecyclerView(inflater, container);
         initFAB(view);
 
+        updateTripEvent();
+
+        return view;
+    }
+
+    private void updateTripEvent() {
+        intent = getActivity().getIntent();
+        Trip trip = (Trip) intent.getSerializableExtra(TripActivity.TRIP_KEY_UPDATE);
+        if (trip != null) {
+            Log.e("HomeFragment", trip.toString());
+            tripService.update(trip, updateTripToDBCallback());
+            notifyAdapter();
+        }
+    }
+
+    private View initRecyclerView(@NonNull LayoutInflater inflater, ViewGroup container) {
+        TripAdapter adapter = new TripAdapter(trips, getActivity().getApplicationContext());
+        View view = inflater.inflate(R.layout.fragment_home, container, false);
+        addAdapter(adapter, view);
+        recyclerView.setLongClickable(true);
         return view;
     }
 
@@ -74,15 +91,14 @@ public class HomeFragment extends Fragment {
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        Trip trip = (Trip) data.getSerializableExtra(TripActivity.TRIP_KEY);
 
         if (resultCode == Activity.RESULT_OK && data != null) {
             if (requestCode == REQUEST_CODE_ADD_TRIP) {
+                Trip trip = (Trip) data.getSerializableExtra(TripActivity.TRIP_KEY_INSERT);
                 tripService.insert(trip, insertTripIntoDBCallback());
-                notifyAdapter();
             }
+            notifyAdapter();
         }
-
     }
 
     private void notifyAdapter() {
@@ -97,9 +113,6 @@ public class HomeFragment extends Fragment {
                 if (result != null) {
                     trips.clear();
                     trips.addAll(result);
-                    for (Trip trip: trips) {
-                        Log.e("trip", trip.toString());
-                    }
                     notifyAdapter();
                 }
             }
@@ -125,7 +138,7 @@ public class HomeFragment extends Fragment {
                 if (result != null) {
                     for (Trip trip : trips) {
                         if (trip.getId() == result.getId()) {
-                            trip = result;
+                            cloneFragment(result, trip);
                             break;
                         }
                     }
@@ -133,6 +146,17 @@ public class HomeFragment extends Fragment {
                 notifyAdapter();
             }
         };
+    }
+
+    private void cloneFragment(Trip result, Trip trip) {
+        trip.setName(result.getName());
+        trip.setDestination(result.getDestination());
+        trip.setType(result.getType());
+        trip.setPrice(result.getPrice());
+        trip.setRating(result.getRating());
+        trip.setStart_date(result.getStart_date());
+        trip.setEnd_date(result.getEnd_date());
+        trip.setFav(result.isFav());
     }
 
     private Callback<Integer> deleteTripFromDBCallback(final int position) {

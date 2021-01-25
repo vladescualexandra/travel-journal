@@ -8,6 +8,7 @@ import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -16,7 +17,9 @@ import android.widget.RadioGroup;
 import android.widget.RatingBar;
 import android.widget.SeekBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.example.travel_journal.adapter.TripAdapter;
 import com.example.travel_journal.database.model.Trip;
 import com.example.travel_journal.util.DateConverter;
 import com.google.android.material.textfield.TextInputEditText;
@@ -27,7 +30,8 @@ import static com.example.travel_journal.R.*;
 
 public class TripActivity extends AppCompatActivity {
 
-    public static String TRIP_KEY = "trip_key";
+    public static String TRIP_KEY_INSERT = "trip_key_insert";
+    public static String TRIP_KEY_UPDATE = "trip_key_update";
 
     private TextView title;
     private TextInputEditText name;
@@ -75,6 +79,29 @@ public class TripActivity extends AppCompatActivity {
         price.setOnSeekBarChangeListener(setPriceEvent());
         rating.setOnRatingBarChangeListener(setRatingEvent());
         btn.setOnClickListener(saveTripEvent());
+
+        intent = getIntent();
+        trip = (Trip) intent.getSerializableExtra(TripAdapter.TripViewHolder.TRIP_KEY_UPDATE);
+        if (trip != null) {
+            name.setText(trip.getName());
+            destination.setText(trip.getDestination());
+            if (trip.getType().equals(Trip.SEA_SIDE)) {
+                type.check(id.trip_type_sea_side);
+            } else if (trip.getType().equals(Trip.MOUNTAINS)) {
+                type.check(id.trip_type_mountains);
+            } else {
+                type.check(id.trip_type_city_break);
+            }
+
+            price.setProgress(trip.getPrice());
+            if (trip.getStart_date() != null) {
+                startDate.setText(trip.getStart_date());
+            }
+            if (trip.getEnd_date() != null) {
+                endDate.setText(trip.getEnd_date());
+            }
+            rating.setRating(trip.getRating());
+        }
     }
 
     private View.OnClickListener saveTripEvent() {
@@ -87,10 +114,26 @@ public class TripActivity extends AppCompatActivity {
                     trip.setType(Trip.CITY_BREAK);
                 }
                 trip.setFav(false);
-                intent = new Intent();
-                intent.putExtra(TRIP_KEY, trip);
-                setResult(RESULT_OK, intent);
-                finish();
+
+                if (startDate.getText().toString() == null) {
+                    trip.setStart_date("01/01/2021");
+                }
+                if (endDate.getText().toString() == null) {
+                    trip.setEnd_date("01/01/2021");
+                }
+
+                if (intent == null) {
+                    Log.e("TripActivity", "insert");
+                    intent.putExtra(TRIP_KEY_INSERT, trip);
+                    setResult(RESULT_OK, intent);
+                    finish();
+                } else {
+                    intent = new Intent(getApplicationContext(), HomeActivity.class);
+                    intent.putExtra(TRIP_KEY_UPDATE, trip);
+                    Log.e("TripActivity", "update");
+                    startActivity(intent);
+                }
+
             }
         };
     }
