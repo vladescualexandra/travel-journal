@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -52,16 +53,28 @@ public class MainActivity extends AppCompatActivity {
                         fragment = new ContactFragment();
                         break;
                     default:
-                        fragment = new ShareFragment();
+                        fragment = null;
+                        shareAction();
                         break;
                 }
-                show(fragment);
+                if (fragment != null) {
+                    show(fragment);
+                } 
                 drawerLayout.closeDrawer(GravityCompat.START);
                 return true;
             }
         });
 
         setNavigationView();
+    }
+
+    private void shareAction() {
+        Intent intent = new Intent();
+        intent.setAction(Intent.ACTION_SEND);
+        intent.putExtra(Intent.EXTRA_TEXT, "hey, i made a cool app");
+        intent.setType("text/plain");
+        Intent.createChooser(intent, "Share via");
+        startActivity(intent);
     }
 
     private void configNavigation() {
