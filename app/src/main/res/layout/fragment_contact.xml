@@ -1,14 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".fragments.ContactFragment">
+    android:orientation="vertical"
+    tools:context=".fragments.ContactFragment"
+    android:layout_margin="50sp"
+    >
 
-    <!-- TODO: Update blank fragment layout -->
     <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="CONTACT" />
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/contact_email_2"
+        android:layout_gravity="center"
+        android:layout_marginBottom="10sp"
+        />
 
-</FrameLayout>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/contact_email_1"
+        android:layout_gravity="center"
+        android:layout_marginBottom="10sp"
+        />
+
+
+    <ImageButton
+        android:id="@+id/contact_github"
+        android:layout_width="100sp"
+        android:layout_height="100sp"
+        android:src="@drawable/github"
+        android:scaleType="centerCrop"
+        android:background="@color/white"
+        android:layout_gravity="center"
+        android:layout_marginBottom="20sp"
+        />
+
+    <ImageButton
+        android:id="@+id/contact_linkedin"
+        android:layout_width="100sp"
+        android:layout_height="100sp"
+        android:src="@drawable/linkedin"
+        android:scaleType="centerCrop"
+        android:layout_gravity="center"
+        android:background="@color/white"
+        />
+</LinearLayout>
