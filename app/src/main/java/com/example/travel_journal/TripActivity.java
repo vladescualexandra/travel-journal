@@ -8,9 +8,7 @@ import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.ImageButton;
@@ -18,15 +16,12 @@ import android.widget.RadioGroup;
 import android.widget.RatingBar;
 import android.widget.SeekBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.example.travel_journal.model.Trip;
-import com.example.travel_journal.model.Type;
+import com.example.travel_journal.database.model.Trip;
 import com.example.travel_journal.util.DateConverter;
 import com.google.android.material.textfield.TextInputEditText;
 
 import java.util.Calendar;
-import java.util.Date;
 
 import static com.example.travel_journal.R.*;
 
@@ -102,14 +97,14 @@ public class TripActivity extends AppCompatActivity {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
                 switch (checkedId) {
-                    case id.trip_type_city_break:
-                        trip.setType(Type.CITY_BREAK);
+                    case id.trip_type_mountains:
+                        trip.setType(Trip.MOUNTAINS);
                         break;
                     case id.trip_type_sea_side:
-                        trip.setType(Type.SEA_SIDE);
+                        trip.setType(Trip.SEA_SIDE);
                         break;
                     default:
-                        trip.setType(Type.MOUNTAINS);
+                        trip.setType(Trip.CITY_BREAK);
                         break;
                 }
             }
@@ -159,7 +154,7 @@ public class TripActivity extends AppCompatActivity {
                             @Override
                             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
                                 startDate.setText(getString(R.string.trip_date_format, dayOfMonth, month + 1, year));
-                                Date start = DateConverter.fromDTP(dayOfMonth, month, year);
+                                String start = DateConverter.format(dayOfMonth, month, year);
                                 trip.setStart_date(start);
                             }
                         }, start_year, start_month, start_day);
@@ -183,7 +178,7 @@ public class TripActivity extends AppCompatActivity {
                             @Override
                             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
                                 endDate.setText(getString(R.string.trip_date_format, dayOfMonth, month + 1, year));
-                                Date end = DateConverter.fromDTP(dayOfMonth, month, year);
+                                String end = DateConverter.format(dayOfMonth, month, year);
                                 trip.setEnd_date(end);
                             }
                         }, end_year, end_month, end_day);

@@ -12,13 +12,4 @@ public class DateConverter {
         return day + "/" + (month + 1) + "/" + year;
     }
 
-    public static Date fromDTP(int day, int month, int year)  {
-        try {
-            String format = format(day, month, year);
-            SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
-            return formatter.parse(format);
-        } catch (ParseException e) {
-            return null;
-        }
-    }
 }
