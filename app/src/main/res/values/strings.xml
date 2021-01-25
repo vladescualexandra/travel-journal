@@ -40,5 +40,8 @@
     <string name="end_date">End Date:</string>
     <string name="start_date">Start Date:</string>
     <string name="contact_email_1">vladescualexandra18@stud.ase.ro</string>
-    <string name="contact_email_2">vladescubianca26@gmail.com</string>%
+    <string name="contact_email_2">vladescubianca26@gmail.com</string>
+    <string name="about_created_by">Project created by Vlădescu Alexandra-Bianca during Android Fundamentals Course @ 2020</string>
+    <string name="about_icons_from">Icons from</string>
+    %
 </resources>
