@@ -83,6 +83,10 @@ public class TripActivity extends AppCompatActivity {
             public void onClick(View v) {
                 trip.setName(name.getText().toString());
                 trip.setDestination(destination.getText().toString());
+                if (trip.getType() == null) {
+                    trip.setType(Trip.CITY_BREAK);
+                }
+                trip.setFav(false);
                 intent = new Intent();
                 intent.putExtra(TRIP_KEY, trip);
                 setResult(RESULT_OK, intent);
