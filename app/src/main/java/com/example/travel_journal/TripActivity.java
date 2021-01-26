@@ -55,12 +55,10 @@ public class TripActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(layout.activity_trip);
-
         initComponents();
     }
 
     private void initComponents() {
-        trip = new Trip();
         title = findViewById(id.trip_title);
         name = findViewById(id.trip_name);
         destination = findViewById(id.trip_destination);
@@ -78,11 +76,11 @@ public class TripActivity extends AppCompatActivity {
         type.setOnCheckedChangeListener(setTypeEvent());
         price.setOnSeekBarChangeListener(setPriceEvent());
         rating.setOnRatingBarChangeListener(setRatingEvent());
-        btn.setOnClickListener(saveTripEvent());
 
         intent = getIntent();
         trip = (Trip) intent.getSerializableExtra(TripAdapter.TripViewHolder.TRIP_KEY_UPDATE);
         if (trip != null) {
+            Log.e("TripActivity - update", trip.toString());
             name.setText(trip.getName());
             destination.setText(trip.getDestination());
             if (trip.getType().equals(Trip.SEA_SIDE)) {
@@ -101,41 +99,48 @@ public class TripActivity extends AppCompatActivity {
                 endDate.setText(trip.getEnd_date());
             }
             rating.setRating(trip.getRating());
+        } else {
+            trip = new Trip();
         }
+        btn.setOnClickListener(saveTripEvent());
     }
+
 
     private View.OnClickListener saveTripEvent() {
         return new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                trip.setName(name.getText().toString());
-                trip.setDestination(destination.getText().toString());
-                if (trip.getType() == null) {
-                    trip.setType(Trip.CITY_BREAK);
-                }
-                trip.setFav(false);
+                buildTrip();
 
-                if (startDate.getText().toString() == null) {
-                    trip.setStart_date("01/01/2021");
-                }
-                if (endDate.getText().toString() == null) {
-                    trip.setEnd_date("01/01/2021");
-                }
-
-                if (intent == null) {
-                    Log.e("TripActivity", "insert");
-                    intent.putExtra(TRIP_KEY_INSERT, trip);
-                    setResult(RESULT_OK, intent);
-                    finish();
-                } else {
+                if (trip.getId() > 0) {
                     intent = new Intent(getApplicationContext(), HomeActivity.class);
                     intent.putExtra(TRIP_KEY_UPDATE, trip);
                     Log.e("TripActivity", "update");
                     startActivity(intent);
+                } else {
+                    Log.e("TripActivity", "insert");
+                    intent.putExtra(TRIP_KEY_INSERT, trip);
+                    setResult(RESULT_OK, intent);
+                    finish();
                 }
-
             }
         };
+    }
+
+    private void buildTrip() {
+        trip.setName(name.getText().toString());
+        trip.setDestination(destination.getText().toString());
+        if (trip.getType() == null) {
+            trip.setType(Trip.CITY_BREAK);
+        }
+        trip.setFav(false);
+
+        if (startDate.getText().toString() == null) {
+            trip.setStart_date("01/01/2021");
+        }
+        if (endDate.getText().toString() == null) {
+            trip.setEnd_date("01/01/2021");
+        }
     }
 
     private RadioGroup.OnCheckedChangeListener setTypeEvent() {

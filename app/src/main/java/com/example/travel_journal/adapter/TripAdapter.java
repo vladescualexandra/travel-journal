@@ -2,6 +2,7 @@ package com.example.travel_journal.adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +14,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.travel_journal.DisplayActivity;
 import com.example.travel_journal.R;
 import com.example.travel_journal.TripActivity;
 import com.example.travel_journal.database.model.Trip;
@@ -44,7 +46,19 @@ public class TripAdapter extends RecyclerView.Adapter<TripAdapter.TripViewHolder
             rb_rating = view.findViewById(R.id.home_row_trip_rating);
             ib_fav = view.findViewById(R.id.home_row_button_fav);
 
+            view.setOnClickListener(displayTripEvent());
             view.setOnLongClickListener(updateTripEvent());
+        }
+
+        private View.OnClickListener displayTripEvent() {
+            return new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(v.getContext(), DisplayActivity.class);
+                    intent.putExtra(TRIP_KEY_DISPLAY, trip);
+                    v.getContext().startActivity(intent);
+                }
+            };
         }
 
         void bind(@NonNull final Trip trip) {
