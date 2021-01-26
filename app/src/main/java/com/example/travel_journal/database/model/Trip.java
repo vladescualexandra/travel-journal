@@ -25,17 +25,17 @@ public class Trip implements Serializable {
     @ColumnInfo(name = "destination")
     private String destination;
     @ColumnInfo(name = "type")
-    private String type;
+    private String type = Trip.CITY_BREAK;
     @ColumnInfo(name = "price")
     private int price;
     @ColumnInfo(name = "rating")
     private int rating;
     @ColumnInfo(name = "start_date")
-    private String start_date;
+    private String start_date = "21/01/2021";
     @ColumnInfo(name = "end_date")
-    private String end_date;
+    private String end_date =  "21/01/2021";
     @ColumnInfo(name = "fav")
-    private boolean fav;
+    private boolean fav = false;
 
     @Ignore
     public Trip() {

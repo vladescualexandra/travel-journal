@@ -17,12 +17,14 @@ import android.widget.RadioGroup;
 import android.widget.RatingBar;
 import android.widget.SeekBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.travel_journal.adapter.TripAdapter;
 import com.example.travel_journal.database.model.Trip;
 import com.example.travel_journal.util.DateConverter;
 import com.google.android.material.textfield.TextInputEditText;
+import com.warkiz.widget.IndicatorSeekBar;
+import com.warkiz.widget.OnSeekChangeListener;
+import com.warkiz.widget.SeekParams;
 
 import java.util.Calendar;
 
@@ -37,7 +39,7 @@ public class TripActivity extends AppCompatActivity {
     private TextInputEditText name;
     private TextInputEditText destination;
     private RadioGroup type;
-    private SeekBar price;
+    private IndicatorSeekBar price;
     private TextView startDate;
     private TextView endDate;
     private ImageButton editStartDate;
@@ -74,7 +76,7 @@ public class TripActivity extends AppCompatActivity {
         editStartDateEvent();
         editEndDateEvent();
         type.setOnCheckedChangeListener(setTypeEvent());
-        price.setOnSeekBarChangeListener(setPriceEvent());
+        price.setOnSeekChangeListener(setPriceEvent());
         rating.setOnRatingBarChangeListener(setRatingEvent());
 
         intent = getIntent();
@@ -103,6 +105,25 @@ public class TripActivity extends AppCompatActivity {
             trip = new Trip();
         }
         btn.setOnClickListener(saveTripEvent());
+    }
+
+    private OnSeekChangeListener setPriceEvent() {
+        return new OnSeekChangeListener() {
+            @Override
+            public void onSeeking(SeekParams seekParams) {
+                trip.setPrice(seekParams.progress);
+            }
+
+            @Override
+            public void onStartTrackingTouch(IndicatorSeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(IndicatorSeekBar seekBar) {
+
+            }
+        };
     }
 
 
@@ -172,24 +193,7 @@ public class TripActivity extends AppCompatActivity {
         };
     }
 
-    private SeekBar.OnSeekBarChangeListener setPriceEvent() {
-        return new SeekBar.OnSeekBarChangeListener() {
-            @Override
-            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                trip.setPrice(progress);
-            }
 
-            @Override
-            public void onStartTrackingTouch(SeekBar seekBar) {
-
-            }
-
-            @Override
-            public void onStopTrackingTouch(SeekBar seekBar) {
-
-            }
-        };
-    }
 
     private void editStartDateEvent() {
         editStartDate.setOnClickListener(new View.OnClickListener() {

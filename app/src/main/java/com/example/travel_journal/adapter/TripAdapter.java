@@ -2,6 +2,7 @@ package com.example.travel_journal.adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -56,6 +57,7 @@ public class TripAdapter extends RecyclerView.Adapter<TripAdapter.TripViewHolder
                 public void onClick(View v) {
                     Intent intent = new Intent(v.getContext(), DisplayActivity.class);
                     intent.putExtra(TRIP_KEY_DISPLAY, trip);
+                    Log.e("TripAdapter", "hello?");
                     v.getContext().startActivity(intent);
                 }
             };

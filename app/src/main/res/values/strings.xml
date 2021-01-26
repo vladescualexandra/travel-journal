@@ -25,6 +25,7 @@
     <string name="home_row_trip_name">Trip Name</string>
     <string name="home_row_trip_destination">Trip Destination</string>
     <string name="home_row_trip_price">%1$d €</string>
+    <string name="display_price_format">You spent %1$d € on this trip.</string>
     <string name="trip_title">Add a new trip</string>
     <string name="trip_name">Trip name</string>
     <string name="trip_type_city_break">City Break</string>
@@ -43,5 +44,4 @@
     <string name="contact_email_2">vladescubianca26@gmail.com</string>
     <string name="about_created_by">Project created by Vlădescu Alexandra-Bianca during Android Fundamentals Course @ 2020</string>
     <string name="about_icons_from">Icons from</string>
-    %
 </resources>

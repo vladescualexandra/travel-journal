@@ -19,7 +19,6 @@ import android.widget.TextView;
 import com.example.travel_journal.fragments.AboutFragment;
 import com.example.travel_journal.fragments.ContactFragment;
 import com.example.travel_journal.fragments.HomeFragment;
-import com.example.travel_journal.fragments.ShareFragment;
 import com.google.android.material.navigation.NavigationView;
 
 public class MainActivity extends AppCompatActivity {
@@ -109,9 +108,16 @@ public class MainActivity extends AppCompatActivity {
             fragmentManager
                     .beginTransaction()
                     .replace(R.id.main_frame_container, fragment)
+                    .addToBackStack(null)
                     .commit();
         }
         drawerLayout.closeDrawer(GravityCompat.START);
     }
 
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finishAffinity();
+    }
 }

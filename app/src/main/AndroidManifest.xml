@@ -13,7 +13,6 @@
         android:theme="@style/Theme.travel_journal">
         <activity android:name=".DisplayActivity"></activity>
         <activity android:name=".TripActivity" />
-        <activity android:name=".ShareActivity" />
         <activity android:name=".ContactActivity" />
         <activity android:name=".AboutActivity" />
         <activity android:name=".HomeActivity" />
