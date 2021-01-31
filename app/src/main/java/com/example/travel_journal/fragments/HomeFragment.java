@@ -33,7 +33,8 @@ public class HomeFragment extends Fragment {
     RecyclerView recyclerView;
     List<Trip> trips = new ArrayList<>();
     private TripService tripService;
-Intent intent;
+    Intent intent;
+
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
 
@@ -51,7 +52,6 @@ Intent intent;
         intent = getActivity().getIntent();
         Trip trip = (Trip) intent.getSerializableExtra(TripActivity.TRIP_KEY_UPDATE);
         if (trip != null) {
-            Log.e("HomeFragment", trip.toString());
             tripService.update(trip, updateTripToDBCallback());
             notifyAdapter();
         }
@@ -159,15 +159,5 @@ Intent intent;
         trip.setFav(result.isFav());
     }
 
-    private Callback<Integer> deleteTripFromDBCallback(final int position) {
-        return new Callback<Integer>() {
-            @Override
-            public void runResultOnUIThread(Integer result) {
-                if (result != -1) {
-                    trips.remove(position);
-                    notifyAdapter();
-                }
-            }
-        };
-    }
+
 }

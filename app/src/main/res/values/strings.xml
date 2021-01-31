@@ -44,4 +44,7 @@
     <string name="contact_email_2">vladescubianca26@gmail.com</string>
     <string name="about_created_by">Project created by Vlădescu Alexandra-Bianca during Android Fundamentals Course @ 2020</string>
     <string name="about_icons_from">Icons from</string>
+    <string name="delete_yes">Yes</string>
+    <string name="delete_no">No</string>
+    <string name="invalid_text_input">Input should have more than 3 characters.</string>
 </resources>

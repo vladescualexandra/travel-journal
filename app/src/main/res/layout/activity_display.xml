@@ -1,22 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <GridLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
     tools:context=".DisplayActivity"
+    android:layout_gravity="center"
     android:padding="16sp">
 
     <TextView
         android:id="@+id/display_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/trip_name" />
+        android:text="@string/trip_name"
+        style="@style/big_title"/>
 
     <TextView
         android:id="@+id/display_destination"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        style="@style/subtitle"
         android:layout_row="1"
         android:layout_column="0"
         android:text="@string/trip_destination" />
@@ -25,10 +29,11 @@
         android:id="@+id/display_rating"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        style="@style/Widget.AppCompat.RatingBar.Small"
         android:layout_row="0"
         android:layout_rowSpan="2"
         android:layout_column="0"
-        android:layout_gravity="right"
+        android:layout_gravity="right|center"
         android:isIndicator="true"
         android:clickable="false"/>
 
@@ -40,6 +45,9 @@
         android:layout_column="0"
         android:layout_gravity="center"
         android:text="You spent 0.0 euro on this trip."
+        android:layout_marginTop="16sp"
+        android:textSize="16sp"
+        android:textStyle="bold"
         android:textAlignment="center" />
 
     <CalendarView
@@ -53,5 +61,15 @@
         android:focusable="false"
         />
 
-
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/display_delete"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        android:layout_row="4"
+        android:layout_column="0"
+        android:layout_gravity="right"
+        android:layout_margin="16sp"
+        app:srcCompat="@android:drawable/ic_menu_delete"
+        android:focusable="true" />
 </GridLayout>

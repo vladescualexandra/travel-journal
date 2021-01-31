@@ -2,8 +2,15 @@
 <resources>
     <style name="big_title">
         <item name="fontFamily">Work Sans</item>
-        <item name="fontWeight">800</item>
+        <item name="fontWeight">100</item>
         <item name="android:textSize">26sp</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
+
+    <style name="subtitle">
+        <item name="fontFamily">Work Sans</item>
+        <item name="fontWeight">800</item>
+        <item name="android:textSize">20sp</item>
         <item name="android:textColor">@color/black</item>
     </style>
 

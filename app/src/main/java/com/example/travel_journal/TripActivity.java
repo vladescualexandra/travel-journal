@@ -35,7 +35,6 @@ public class TripActivity extends AppCompatActivity {
     public static String TRIP_KEY_INSERT = "trip_key_insert";
     public static String TRIP_KEY_UPDATE = "trip_key_update";
 
-    private TextView title;
     private TextInputEditText name;
     private TextInputEditText destination;
     private RadioGroup type;
@@ -61,7 +60,6 @@ public class TripActivity extends AppCompatActivity {
     }
 
     private void initComponents() {
-        title = findViewById(id.trip_title);
         name = findViewById(id.trip_name);
         destination = findViewById(id.trip_destination);
         type = findViewById(id.trip_type);
@@ -131,37 +129,55 @@ public class TripActivity extends AppCompatActivity {
         return new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                buildTrip();
+                if (validate()) {
+                    buildTrip();
 
-                if (trip.getId() > 0) {
-                    intent = new Intent(getApplicationContext(), HomeActivity.class);
-                    intent.putExtra(TRIP_KEY_UPDATE, trip);
-                    Log.e("TripActivity", "update");
-                    startActivity(intent);
-                } else {
-                    Log.e("TripActivity", "insert");
-                    intent.putExtra(TRIP_KEY_INSERT, trip);
-                    setResult(RESULT_OK, intent);
-                    finish();
+                    if (trip.getId() > 0) {
+                        intent = new Intent(getApplicationContext(), HomeActivity.class);
+                        intent.putExtra(TRIP_KEY_UPDATE, trip);
+                        startActivity(intent);
+                    } else {
+                        intent.putExtra(TRIP_KEY_INSERT, trip);
+                        setResult(RESULT_OK, intent);
+                        finish();
+                    }
                 }
             }
         };
     }
 
     private void buildTrip() {
-        trip.setName(name.getText().toString());
-        trip.setDestination(destination.getText().toString());
-        if (trip.getType() == null) {
-            trip.setType(Trip.CITY_BREAK);
-        }
-        trip.setFav(false);
+            trip.setName(name.getText().toString());
+            trip.setDestination(destination.getText().toString());
+            if (trip.getType() == null) {
+                trip.setType(Trip.CITY_BREAK);
+            }
+            trip.setFav(false);
 
-        if (startDate.getText().toString() == null) {
-            trip.setStart_date("01/01/2021");
+            if (startDate.getText().toString() == null) {
+                trip.setStart_date("01/01/2021");
+            }
+            if (endDate.getText().toString() == null) {
+                trip.setEnd_date("01/01/2021");
+            }
+    }
+
+    public boolean validate() {
+        if (name.getText().toString().trim().length() < 3) {
+            name.setError(getString(string.invalid_text_input));
+            return false;
+        } else {
+            name.setError(null);
         }
-        if (endDate.getText().toString() == null) {
-            trip.setEnd_date("01/01/2021");
+
+        if (destination.getText().toString().trim().length() < 3) {
+            destination.setError(getString(string.invalid_text_input));
+            return false;
+        } else {
+            destination.setError(null);
         }
+
+        return true;
     }
 
     private RadioGroup.OnCheckedChangeListener setTypeEvent() {
