@@ -1,23 +1,50 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?><!--<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"-->
+<!--    xmlns:app="http://schemas.android.com/apk/res-auto"-->
+<!--    xmlns:tools="http://schemas.android.com/tools"-->
+<!--    android:layout_width="match_parent"-->
+<!--    android:layout_height="match_parent"-->
+<!--    android:padding="16sp">-->
+
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_gravity="center"
     android:orientation="vertical"
-    android:padding="20sp"
-    tools:context=".TripActivity">
+    android:padding="16sp">
 
-    <TextView
-        android:id="@+id/trip_title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="15sp"
-        android:text="@string/trip_title" />
-
-    <com.google.android.material.textfield.TextInputLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/trip_title"
+            style="@style/big_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15sp"
+            android:layout_marginBottom="15sp"
+            android:layout_weight="1"
+            android:text="@string/trip_title" />
+
+        <Button
+            android:id="@+id/trip_save"
+            style="@style/trip_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:text="@string/trip_save" />
+
+    </LinearLayout>
+
+
+    <com.google.android.material.textfield.TextInputLayout
+        style="@style/trip_input"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="12sp">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/trip_name"
@@ -29,6 +56,7 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
+        style="@style/trip_input"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
@@ -44,8 +72,8 @@
         android:id="@+id/trip_type"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:weightSum="3">
+        android:layout_margin="12sp"
+        android:orientation="horizontal">
 
         <RadioButton
             android:id="@+id/trip_type_city_break"
@@ -74,14 +102,13 @@
         android:id="@+id/trip_price"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_margin="12sp"
         app:isb_indicator_color="@color/reply_blue_600"
         app:isb_indicator_text_color="@color/white"
         app:isb_indicator_text_size="18sp"
         app:isb_max="100"
         app:isb_min="0.0"
         app:isb_progress="1"
-        app:isb_seek_smoothly="true"
-        app:isb_show_indicator="rounded_rectangle"
         app:isb_show_tick_marks_type="oval"
         app:isb_show_tick_texts="true"
         app:isb_thumb_color="@color/reply_blue_800"
@@ -91,85 +118,96 @@
         app:isb_tick_marks_size="13dp"
         app:isb_tick_texts_color="@color/reply_blue_800"
         app:isb_tick_texts_size="15sp"
-        app:isb_ticks_count="3"
+        app:isb_ticks_count="0"
         app:isb_track_background_size="2dp"
         app:isb_track_progress_color="@color/reply_blue_600"
         app:isb_track_progress_size="4dp" />
 
     <LinearLayout
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:weightSum="5">
+        android:layout_gravity="center">
 
         <TextView
+            style="@style/trip_dates"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_weight="1"
-            android:text="@string/start_date" />
+            android:text="@string/start_date"
+            app:layout_column="0"
+            app:layout_row="0" />
 
         <TextView
             android:id="@+id/trip_start_date"
+            style="@style/trip_dates"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_weight="3"
-            android:text="@string/trip_default_date" />
+            android:text="@string/trip_default_date"
+            app:layout_column="1"
+            app:layout_row="0" />
 
         <ImageButton
             android:id="@+id/trip_edit_start_date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:layout_gravity="center"
             android:padding="0dp"
             android:scaleX="0.5"
             android:scaleY="0.5"
-            android:src="@android:drawable/ic_menu_edit" />
+            android:src="@android:drawable/ic_menu_edit"
+            app:layout_column="2"
+            app:layout_columnWeight="1"
+            app:layout_row="0" />
+
     </LinearLayout>
 
     <LinearLayout
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:weightSum="5">
+        android:layout_gravity="center_horizontal">
 
         <TextView
+            style="@style/trip_dates"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_weight="1"
-            android:text="@string/end_date" />
+            android:text="@string/end_date"
+            app:layout_column="0"
+            app:layout_row="1" />
 
         <TextView
             android:id="@+id/trip_end_date"
+            style="@style/trip_dates"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_weight="3"
-            android:text="@string/trip_default_date" />
+            android:text="@string/trip_default_date"
+            app:layout_column="1"
+            app:layout_row="1" />
 
         <ImageButton
             android:id="@+id/trip_edit_end_date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:layout_gravity="center"
             android:padding="0dp"
             android:scaleX="0.5"
             android:scaleY="0.5"
-            android:src="@android:drawable/ic_menu_edit" />
+            android:src="@android:drawable/ic_menu_edit"
+            app:layout_column="2"
+            app:layout_row="1" />
+
     </LinearLayout>
+
 
     <RatingBar
         android:id="@+id/trip_rating"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:numStars="5"
-        android:stepSize="1" />
+        android:layout_gravity="center"
+        android:layout_margin="16sp"
+        android:stepSize="1"/>
 
-    <Button
-        android:id="@+id/trip_save"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:text="@string/trip_save" />
 
-</LinearLayout>
+</LinearLayout><!--</ScrollView>-->

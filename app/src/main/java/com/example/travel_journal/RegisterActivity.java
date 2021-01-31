@@ -77,4 +77,9 @@ public class RegisterActivity extends AppCompatActivity {
         editor.putString(EMAIL_KEY, email);
         editor.apply();
     }
+
+    @Override
+    public void onBackPressed() {
+        finishAffinity();
+    }
 }
