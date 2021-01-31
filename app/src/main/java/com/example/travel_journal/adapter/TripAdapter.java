@@ -1,5 +1,6 @@
 package com.example.travel_journal.adapter;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
@@ -11,6 +12,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -57,7 +59,6 @@ public class TripAdapter extends RecyclerView.Adapter<TripAdapter.TripViewHolder
                 public void onClick(View v) {
                     Intent intent = new Intent(v.getContext(), DisplayActivity.class);
                     intent.putExtra(TRIP_KEY_DISPLAY, trip);
-                    Log.e("TripAdapter", "hello?");
                     v.getContext().startActivity(intent);
                 }
             };
@@ -115,7 +116,7 @@ public class TripAdapter extends RecyclerView.Adapter<TripAdapter.TripViewHolder
 
         holder.tv_name.setText(trip.getName());
         holder.tv_destination.setText(trip.getDestination());
-        holder.tv_price.setText(String.valueOf(trip.getPrice()));
+        holder.tv_price.setText(trip.getPrice() + "€");
         holder.rb_rating.setRating((float) trip.getRating());
 
         if (trip.isFav()) {
@@ -124,6 +125,7 @@ public class TripAdapter extends RecyclerView.Adapter<TripAdapter.TripViewHolder
             holder.ib_fav.setImageResource(R.drawable.ic_not_fav);
         }
     }
+
 
     @Override
     public int getItemCount() {

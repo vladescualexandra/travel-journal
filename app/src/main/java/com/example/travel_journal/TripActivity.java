@@ -105,6 +105,7 @@ public class TripActivity extends AppCompatActivity {
         btn.setOnClickListener(saveTripEvent());
     }
 
+
     private OnSeekChangeListener setPriceEvent() {
         return new OnSeekChangeListener() {
             @Override
@@ -147,19 +148,15 @@ public class TripActivity extends AppCompatActivity {
     }
 
     private void buildTrip() {
-            trip.setName(name.getText().toString());
-            trip.setDestination(destination.getText().toString());
-            if (trip.getType() == null) {
-                trip.setType(Trip.CITY_BREAK);
-            }
-            trip.setFav(false);
+        trip.setName(name.getText().toString());
+        trip.setDestination(destination.getText().toString());
+        if (trip.getType() == null) {
+            trip.setType(Trip.CITY_BREAK);
+        }
+        trip.setFav(false);
 
-            if (startDate.getText().toString() == null) {
-                trip.setStart_date("01/01/2021");
-            }
-            if (endDate.getText().toString() == null) {
-                trip.setEnd_date("01/01/2021");
-            }
+        trip.setStart_date(startDate.getText().toString());
+        trip.setEnd_date(endDate.getText().toString());
     }
 
     public boolean validate() {
@@ -208,7 +205,6 @@ public class TripActivity extends AppCompatActivity {
             }
         };
     }
-
 
 
     private void editStartDateEvent() {

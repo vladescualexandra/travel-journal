@@ -20,6 +20,7 @@ import com.example.travel_journal.database.service.TripService;
 import com.example.travel_journal.util.DateConverter;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import java.net.HttpURLConnection;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -55,6 +56,10 @@ public class DisplayActivity extends AppCompatActivity {
         if (trip != null) {
             buildViews();
         }
+    }
+
+    private void getWeather() {
+
     }
 
     private View.OnClickListener deleteTrip() {
