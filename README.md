@@ -1,6 +1,15 @@
 # Final Project - Travel Journal
 
-## Requirments
+<p float="left">
+          
+  <img src="https://github.com/vladescualexandra/travel-journal/blob/master/demo/register.jpeg" height="400" />
+  <img src="https://github.com/vladescualexandra/travel-journal/blob/master/demo/trips-list.jpeg" height="400" />
+  <img src="https://github.com/vladescualexandra/travel-journal/blob/master/demo/add-trip.jpeg" height="400" />
+  <img src="https://github.com/vladescualexandra/travel-journal/blob/master/demo/trip-display.jpeg" height="400" />
+
+</p>
+
+## Requirements
 * Splashscreen with the icon and the name of the app
 * Main screen
   - It is a navigation drawer activity
@@ -39,3 +48,6 @@
       - Save button
 - Save all the data from your app in the local database, recommended using Room library.
 - Create a new screen that will display the details of the trip in read only mode. You will be the designer of that screen, so be creative! :) The details screen will be displayed when the user will click on an item from the trips list. Also display in this screen the weather from that location using a public api like https://openweathermao.org/current
+
+
+
