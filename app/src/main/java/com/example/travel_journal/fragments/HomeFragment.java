@@ -2,6 +2,7 @@ package com.example.travel_journal.fragments;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.res.ColorStateList;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -30,10 +31,15 @@ import java.util.List;
 public class HomeFragment extends Fragment {
 
     public static final int REQUEST_CODE_ADD_TRIP = 201;
-    RecyclerView recyclerView;
-    List<Trip> trips = new ArrayList<>();
+
+    private RecyclerView recyclerView;
+
+    private static List<Trip> trips = new ArrayList<>();
+
     private TripService tripService;
-    Intent intent;
+    private Intent intent;
+
+    private static boolean fav_switch = false;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -68,6 +74,29 @@ public class HomeFragment extends Fragment {
     private void initFAB(View view) {
         FloatingActionButton fab_add_trip = view.findViewById(R.id.home_add_trip);
         fab_add_trip.setOnClickListener(addTripEvent());
+
+        FloatingActionButton fab_fav_trips = view.findViewById(R.id.home_fav_trips);
+        filterFav(fab_fav_trips);
+    }
+
+    private void filterFav(FloatingActionButton fab_fav_trips) {
+        fab_fav_trips.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                fav_switch = !fav_switch;
+
+                if (fav_switch) {
+                    tripService = new TripService(getActivity().getApplicationContext());
+                    tripService.getFav(getFavTripsFromDBCallback());
+                    fab_fav_trips.setBackgroundColor(getResources().getColor(R.color.reply_blue_600));
+                } else {
+                    tripService = new TripService(getActivity().getApplicationContext());
+                    tripService.getAll(getAllTripsFromDBCallback());
+                    fab_fav_trips.setBackgroundColor(getResources().getColor(R.color.reply_orange_500));
+
+                }
+            }
+        });
     }
 
     private void addAdapter(TripAdapter adapter, View view) {
@@ -107,6 +136,19 @@ public class HomeFragment extends Fragment {
     }
 
     private Callback<List<Trip>> getAllTripsFromDBCallback() {
+        return new Callback<List<Trip>>() {
+            @Override
+            public void runResultOnUIThread(List<Trip> result) {
+                if (result != null) {
+                    trips.clear();
+                    trips.addAll(result);
+                    notifyAdapter();
+                }
+            }
+        };
+    }
+
+    private Callback<List<Trip>> getFavTripsFromDBCallback() {
         return new Callback<List<Trip>>() {
             @Override
             public void runResultOnUIThread(List<Trip> result) {
