@@ -27,6 +27,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import org.w3c.dom.Text;
 
+import java.text.DecimalFormat;
 import java.util.concurrent.Callable;
 
 public class DisplayActivity extends AppCompatActivity {
@@ -82,10 +83,8 @@ public class DisplayActivity extends AppCompatActivity {
                 if (result != null) {
                     Weather weather = JSONWeatherParser.fromJson(result);
                     TextView tv_weather = findViewById(R.id.display_weather);
-                    tv_weather.setText(weather.getMain() + "\t" + weather.getDescription() + "\n"
-                                        + "Temp: " + weather.getTemp() + "C \n"
-                                        + "Feels like: " + weather.getTemp_feels_like() + "\n"
-                                        + "Humidity: " + weather.getHumidity() + "%");
+                    tv_weather.setText(String.format("Temperature: %sC \nHumidity: %s%%",
+                            weather.getTemp(), weather.getHumidity()));
                 } else {
                     Toast.makeText(getApplicationContext(),
                             R.string.invalid_destination, Toast.LENGTH_LONG).show();

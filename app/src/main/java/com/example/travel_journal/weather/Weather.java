@@ -1,5 +1,7 @@
 package com.example.travel_journal.weather;
 
+import java.text.DecimalFormat;
+
 public class Weather {
 
     private String main;
@@ -25,7 +27,10 @@ public class Weather {
 
     private double fromKelvinToCelsius(double kelvin) {
         // 0 K = -273.15
-        return kelvin - 273.15;
+        double d = kelvin - 273.15;
+        DecimalFormat df = new DecimalFormat("##.#");
+        double p = Double.parseDouble(df.format(d));
+        return p;
     }
 
     public String getIcon() {

@@ -1,87 +1,105 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-<GridLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".DisplayActivity"
-    android:layout_gravity="center"
-    android:padding="16sp">
+    android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/display_name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/trip_name"
-        style="@style/big_title"/>
-
-    <TextView
-        android:id="@+id/display_destination"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        style="@style/subtitle"
-        android:layout_row="1"
-        android:layout_column="0"
-        android:text="@string/trip_destination" />
-
-    <RatingBar
-        android:id="@+id/display_rating"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        style="@style/Widget.AppCompat.RatingBar.Small"
-        android:layout_row="0"
-        android:layout_rowSpan="2"
-        android:layout_column="0"
-        android:layout_gravity="right|center"
-        android:isIndicator="true"
-        android:clickable="false"/>
-
-
-
-    <TextView
-        android:id="@+id/display_price"
+    <GridLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_row="2"
-        android:layout_column="0"
         android:layout_gravity="center"
-        android:text="You spent 0.0 euro on this trip."
-        android:layout_marginTop="16sp"
-        android:textSize="16sp"
-        android:textStyle="bold"
-        android:textAlignment="center" />
+        android:padding="16sp"
+        tools:context=".DisplayActivity">
+
+        <TextView
+            android:id="@+id/display_name"
+            style="@style/big_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/trip_name" />
+
+        <TextView
+            android:id="@+id/display_destination"
+            style="@style/subtitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_row="1"
+            android:layout_column="0"
+            android:text="@string/trip_destination" />
+
+        <RatingBar
+            android:id="@+id/display_rating"
+            style="@style/Widget.AppCompat.RatingBar.Small"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_row="0"
+            android:layout_rowSpan="2"
+            android:layout_column="0"
+            android:layout_gravity="right|center"
+            android:clickable="false"
+            android:isIndicator="true" />
 
 
-    <TextView
-        android:id="@+id/display_weather"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_row="3"
-        android:layout_column="0"
-        android:text="default"
-        android:layout_gravity="center"/>
+        <TextView
+            android:id="@+id/display_price"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_row="2"
+            android:layout_column="0"
+            android:layout_gravity="center"
+            android:layout_marginTop="16sp"
+            android:text="You spent 0.0 euro on this trip."
+            android:textAlignment="center"
+            android:textSize="16sp"
+            android:textStyle="bold" />
 
-    <CalendarView
-        android:id="@+id/display_calendar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_row="4"
-        android:layout_column="0"
-        android:layout_gravity="center"
-        android:clickable="false"
-        android:focusable="false"
-        />
+        <androidx.cardview.widget.CardView
+            style="@style/card_weather"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_row="3"
+            android:layout_column="0"
+            android:layout_gravity="center"
+            android:layout_marginLeft="16sp"
+            android:layout_marginRight="16sp"
+            android:backgroundTint="@color/reply_blue_600"
+            android:padding="16sp"
+            app:cardCornerRadius="16sp"
+            android:layout_margin="8sp">
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/display_delete"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:clickable="true"
-        android:layout_row="5"
-        android:layout_column="0"
-        android:layout_gravity="right"
-        android:layout_margin="16sp"
-        app:srcCompat="@android:drawable/ic_menu_delete"
-        android:focusable="true" />
-</GridLayout>
+            <TextView
+                android:id="@+id/display_weather"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:text="default"
+                android:textAlignment="center"
+                android:textColor="@color/white" />
+
+        </androidx.cardview.widget.CardView>
+
+
+        <CalendarView
+            android:id="@+id/display_calendar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_row="4"
+            android:layout_column="0"
+            android:layout_gravity="center"
+            android:clickable="false"
+            android:focusable="false" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/display_delete"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_row="5"
+            android:layout_column="0"
+            android:layout_gravity="right"
+            android:layout_margin="16sp"
+            android:clickable="true"
+            android:focusable="true"
+            app:srcCompat="@android:drawable/ic_menu_delete" />
+    </GridLayout>
+</ScrollView>
