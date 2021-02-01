@@ -18,9 +18,14 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.travel_journal.DisplayActivity;
+import com.example.travel_journal.MainActivity;
 import com.example.travel_journal.R;
 import com.example.travel_journal.TripActivity;
+import com.example.travel_journal.async.Callback;
 import com.example.travel_journal.database.model.Trip;
+import com.example.travel_journal.database.service.TripService;
+
+import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
@@ -51,6 +56,8 @@ public class TripAdapter extends RecyclerView.Adapter<TripAdapter.TripViewHolder
 
             view.setOnClickListener(displayTripEvent());
             view.setOnLongClickListener(updateTripEvent());
+
+            ib_fav.setOnClickListener(favEvent(view));
         }
 
         private View.OnClickListener displayTripEvent() {
@@ -79,7 +86,33 @@ public class TripAdapter extends RecyclerView.Adapter<TripAdapter.TripViewHolder
                 }
             };
         }
+
+        @NotNull
+        private View.OnClickListener favEvent(View view) {
+            return new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    trip.setFav(!trip.isFav());
+                    TripService tripService = new TripService(view.getContext());
+                    tripService.update(trip, addToFavDbCallback(view));
+                }
+            };
+        }
+
+        private Callback<Trip> addToFavDbCallback(View view) {
+            return new Callback<Trip>() {
+                @Override
+                public void runResultOnUIThread(Trip result) {
+                    if (result != null) {
+                        Intent intent = new Intent(view.getContext(), MainActivity.class);
+                        view.getContext().startActivity(intent);
+                    }
+                }
+            };
+        }
     }
+
+
 
     public TripAdapter(List<Trip> trips, Context context) {
         this.trips = trips;
