@@ -47,4 +47,5 @@
     <string name="delete_yes">Yes</string>
     <string name="delete_no">No</string>
     <string name="invalid_text_input">Input should have more than 3 characters.</string>
+    <string name="invalid_destination">Invalid destination for weather! :(</string>
 </resources>

@@ -5,56 +5,27 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 public class JSONWeatherParser {
-    public static Weather getWeather(String data) throws JSONException {
-        Weather weather = new Weather();
-        JSONObject jObj = new JSONObject(data);
-        Location loc = new Location();
 
-        JSONObject coordObj = getObject("coord", jObj);
-        loc.setLatitude(getFloat("lat", coordObj));
-        loc.setLongitude(getFloat("lon", coordObj));
+    public static Weather fromJson(String json) {
+        try {
+            JSONObject weatherJSON = new JSONObject(json);
+            JSONObject weather = weatherJSON.getJSONArray("weather").getJSONObject(0);
 
-        JSONObject sysObj = getObject("sys", jObj);
-        loc.setCountry(getString("country", sysObj));
-        loc.setSunrise(getInt("sunrise", sysObj));
-        loc.setSunset(getInt("sunset", sysObj));
-        loc.setCity(getString("name", jObj));
-        weather.location = loc;
+            String main = weather.getString("main");
+            String description = weather.getString("description");
+            String icon = weather.getString("icon");
 
-        JSONArray jArr = jObj.getJSONArray("weather");
+            JSONObject mainObject = weatherJSON.getJSONObject("main");
 
-        JSONObject JSONWeather = jArr.getJSONObject(0);
-        weather.currentCondition.setWeatherId(getInt("id", JSONWeather));
-        weather.currentCondition.setDescr(getString("description", JSONWeather));
-        weather.currentCondition.setCondition(getString("main", JSONWeather));
-        weather.currentCondition.setIcon(getString("icon", JSONWeather));
-
-        JSONObject mainObj = getObject("main", jObj);
-        weather.currentCondition.setHumidity(getInt("humidity", mainObj));
-        weather.currentCondition.setPressure(getInt("pressure", mainObj));
-        weather.temperature.setMaxTemp(getFloat("temp_max", mainObj));
-        weather.temperature.setMinTemp(getFloat("temp_min", mainObj));
-        weather.temperature.setTemp(getFloat("temp", mainObj));
+            double temp = mainObject.getDouble("temp");
+            double temp_feels_like = mainObject.getDouble("feels_like");
+            double humidity = mainObject.getDouble("humidity");
 
 
-        return weather;
-    }
-
-
-    private static JSONObject getObject(String tagName, JSONObject jObj) throws JSONException {
-        JSONObject subObj = jObj.getJSONObject(tagName);
-        return subObj;
-    }
-
-    private static String getString(String tagName, JSONObject jObj) throws JSONException {
-        return jObj.getString(tagName);
-    }
-
-    private static float getFloat(String tagName, JSONObject jObj) throws JSONException {
-        return (float) jObj.getDouble(tagName);
-    }
-
-    private static int getInt(String tagName, JSONObject jObj) throws JSONException {
-        return jObj.getInt(tagName);
+            return new Weather(icon, main, description, temp, temp_feels_like, humidity);
+        } catch (JSONException e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 }

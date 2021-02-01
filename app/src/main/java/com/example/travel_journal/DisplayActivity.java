@@ -21,7 +21,11 @@ import com.example.travel_journal.database.model.Trip;
 import com.example.travel_journal.database.service.TripService;
 import com.example.travel_journal.network.HttpManager;
 import com.example.travel_journal.util.DateConverter;
+import com.example.travel_journal.weather.JSONWeatherParser;
+import com.example.travel_journal.weather.Weather;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
+import org.w3c.dom.Text;
 
 import java.util.concurrent.Callable;
 
@@ -39,7 +43,6 @@ public class DisplayActivity extends AppCompatActivity {
     Intent intent;
     Trip trip;
 
-    String city = "London";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,7 +70,7 @@ public class DisplayActivity extends AppCompatActivity {
     }
 
     private void getWeather() {
-        Callable<String> asyncOperation = new HttpManager(city);
+        Callable<String> asyncOperation = new HttpManager(trip.getDestination());
         Callback<String> mainThreadOperation = mainThreadOperationGetWeather();
         asyncTaskRunner.executeAsync(asyncOperation, mainThreadOperation);
     }
@@ -77,10 +80,15 @@ public class DisplayActivity extends AppCompatActivity {
             @Override
             public void runResultOnUIThread(String result) {
                 if (result != null) {
-                    Log.e("api", result);
+                    Weather weather = JSONWeatherParser.fromJson(result);
+                    TextView tv_weather = findViewById(R.id.display_weather);
+                    tv_weather.setText(weather.getMain() + "\t" + weather.getDescription() + "\n"
+                                        + "Temp: " + weather.getTemp() + "C \n"
+                                        + "Feels like: " + weather.getTemp_feels_like() + "\n"
+                                        + "Humidity: " + weather.getHumidity() + "%");
                 } else {
                     Toast.makeText(getApplicationContext(),
-                            "null bro", Toast.LENGTH_LONG).show();
+                            R.string.invalid_destination, Toast.LENGTH_LONG).show();
                 }
             }
         };
