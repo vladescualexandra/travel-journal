@@ -1,44 +1,79 @@
 package com.example.travel_journal.network;
 
-import com.example.travel_journal.BuildConfig;
-
-
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.util.concurrent.Callable;
 
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.Response;
-import okhttp3.logging.HttpLoggingInterceptor;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
+public class HttpManager implements Callable<String> {
+    private URL url;
+    private HttpURLConnection connection;
+    private InputStream inputStream;
+    private InputStreamReader inputStreamReader;
+    private BufferedReader bufferedReader;
 
-public class HttpManager {
+    private final String urlAddress;
 
-    private static void getWeather() {
-        OkHttpClient client = new OkHttpClient();
+    private static final String API_BASE_URL = "http://api.openweathermap.org/data/2.5/weather?q=";
+    private static final String API_KEY = "6ab84dbc5830707e4dbcb3735e548191";
 
-        Request request = new Request.Builder()
-                .url("https://community-open-weather-map.p.rapidapi.com/weather?q=London%2Cuk&lat=0&lon=0&callback=test&id=2172797&lang=null&units=%22metric%22%20or%20%22imperial%22&mode=xml%2C%20html")
-                .get()
-                .addHeader("x-rapidapi-key", "1fd07f8cc8mshe656324f05790f5p19da3ejsncf5353c7616c")
-                .addHeader("x-rapidapi-host", "community-open-weather-map.p.rapidapi.com")
-                .build();
 
+    public HttpManager(String city) {
+        this.urlAddress = API_BASE_URL + city + "&APPID=" + API_KEY;
+    }
+
+    @Override
+    public String call() throws Exception {
         try {
-            Response response = client.newCall(request).execute();
+            return getContentFromHttp();
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            closeConnections();
+        }
+        return null;
+    }
 
+    private void closeConnections() {
+        try {
+            bufferedReader.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
+        try {
+            inputStreamReader.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            inputStream.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        connection.disconnect();
     }
 
-    private static OkHttpClient.Builder getClient() {
-        OkHttpClient.Builder client = new OkHttpClient.Builder();
-        if (BuildConfig.DEBUG) {
-            HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
-            interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
-            client.addInterceptor(interceptor);
+    private String getContentFromHttp() throws IOException {
+        url = new URL(urlAddress);
+        connection = (HttpURLConnection) url.openConnection();
+        inputStream = connection.getInputStream();
+        inputStreamReader = new InputStreamReader(inputStream);
+        bufferedReader = new BufferedReader(inputStreamReader);
+
+        StringBuilder result = new StringBuilder();
+
+        String line;
+        while((line = bufferedReader.readLine()) != null){
+            result.append(line);
         }
-        return client;
+        return result.toString();
     }
 }

@@ -12,19 +12,22 @@ import android.view.View;
 import android.widget.CalendarView;
 import android.widget.RatingBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.travel_journal.adapter.TripAdapter;
+import com.example.travel_journal.async.AsyncTaskRunner;
 import com.example.travel_journal.async.Callback;
 import com.example.travel_journal.database.model.Trip;
 import com.example.travel_journal.database.service.TripService;
+import com.example.travel_journal.network.HttpManager;
 import com.example.travel_journal.util.DateConverter;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
-import java.net.HttpURLConnection;
-import java.util.Calendar;
-import java.util.Date;
+import java.util.concurrent.Callable;
 
 public class DisplayActivity extends AppCompatActivity {
+
+    private final AsyncTaskRunner asyncTaskRunner = new AsyncTaskRunner();
 
     private TextView name;
     private TextView destination;
@@ -36,11 +39,16 @@ public class DisplayActivity extends AppCompatActivity {
     Intent intent;
     Trip trip;
 
+    String city = "London";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_display);
         initComponents();
+
+        getWeather();
+
     }
 
     private void initComponents() {
@@ -59,7 +67,23 @@ public class DisplayActivity extends AppCompatActivity {
     }
 
     private void getWeather() {
+        Callable<String> asyncOperation = new HttpManager(city);
+        Callback<String> mainThreadOperation = mainThreadOperationGetWeather();
+        asyncTaskRunner.executeAsync(asyncOperation, mainThreadOperation);
+    }
 
+    private Callback<String> mainThreadOperationGetWeather() {
+        return new Callback<String>() {
+            @Override
+            public void runResultOnUIThread(String result) {
+                if (result != null) {
+                    Log.e("api", result);
+                } else {
+                    Toast.makeText(getApplicationContext(),
+                            "null bro", Toast.LENGTH_LONG).show();
+                }
+            }
+        };
     }
 
     private View.OnClickListener deleteTrip() {
