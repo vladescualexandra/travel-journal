@@ -2,10 +2,10 @@
 
 <p float="left">
           
-  <img src="https://github.com/vladescualexandra/travel-journal/blob/master/demo/register.jpeg" height="400" />
-  <img src="https://github.com/vladescualexandra/travel-journal/blob/master/demo/trips-list.jpeg" height="400" />
-  <img src="https://github.com/vladescualexandra/travel-journal/blob/master/demo/add-trip.jpeg" height="400" />
-  <img src="https://github.com/vladescualexandra/travel-journal/blob/master/demo/trip-display.jpeg" height="400" />
+  <img src="https://github.com/vladescualexandra/travel-journal/blob/master/demo/register.jpeg" height="350" />
+  <img src="https://github.com/vladescualexandra/travel-journal/blob/master/demo/trips-list.jpeg" height="350" />
+  <img src="https://github.com/vladescualexandra/travel-journal/blob/master/demo/add-trip.jpeg" height="350" />
+  <img src="https://github.com/vladescualexandra/travel-journal/blob/master/demo/trip-display.jpeg" height="350" />
 
 </p>
 
